@@ -1,14 +1,17 @@
 !!! 5
 %html
 %head
-	%title Pinpinterest
+	%title Mi Frutas
 	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
 	= javascript_include_tag 'application', 'data-turbolinks-track' => true
 	= csrf_meta_tags
+
 %body
+
+
 	%nav.navbar.navbar-default
 		.container
-			.navbar-brand= link_to "Pinpinterest", root_path
+			.navbar-brand= link_to "Mi Frutas", root_path
 
 			- if user_signed_in?
 				%ul.nav.navbar-nav.navbar-right
@@ -19,9 +22,14 @@
 				%ul.nav.navbar-nav.navbar-right
 					%li= link_to "Sign Up", new_user_registration_path
 					%li= link_to "Sign In", new_user_session_path
+					%li= link_to "Browse", new_category_path
+
+	= render 'layouts/header'
 
 	.container
 		- flash.each do |name, msg|
 			= content_tag :div, msg, class: "alert alert-info"
 
-		= yield
+	= yield
+
+	= render 'layouts/footer' 

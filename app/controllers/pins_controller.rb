@@ -3,7 +3,15 @@ class PinsController < ApplicationController
 	before_action :authenticate_user!, except: [:index, :show]
 
 	def index
-		@pins = Pin.all.order("created_at DESC")
+		@pins = Pin.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 4)
+		#if params[:category].blank?
+     	 @pins = Pin.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 4)
+   		#else
+     	# @category_id = Category.find_pin(name: params[:category]).id
+     	 #@pins = pin.where(category_id: @category_id).order("created_at DESC").paginate(:page => params[:page], :per_page => 4)
+    	#end
+  	#end
+
 	end
 
 	def show
@@ -47,7 +55,7 @@ class PinsController < ApplicationController
 	private
 
 	def pin_params
-		params.require(:pin).permit(:title, :description, :image)
+		params.require(:pin).permit(:title, :description, :image, :category_id, :also_known_as, :recipe)
 	end
 
 	def find_pin
